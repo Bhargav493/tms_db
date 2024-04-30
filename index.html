@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Management System</title>
+    <script src="script.js" defer></script>
+    <style>
+        body{
+    background-color: #355764;
+    padding: 0px;
+    margin: 0px;
+}
+#home_page{
+    background-color: #D4F6CC;
+    top: 25vh;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 25px;
+    height: 25vh;
+    width: 50vw;
+}
+#login_home_page{
+    background-color: #81CACF;
+    top: 25vh;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 25px;
+    height: 30vh;
+    width: 50vw;
+}
+#register_home_page{
+    background-color: #81CACF;
+    top: 20vh;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 25px;
+    height: 45vh;
+    width: 50vw;
+}
+#header{
+    background-color: #D4F6CC;
+    height: 8vh;
+    width: 101vw;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    padding-left: 50px;
+}
+#left_sidebar{
+    /*background-color: #5A8F7B;*/
+    margin-top: 50px;
+    width: 13vw;
+    height: 30vh;
+    /*border-right: 2px solid red;*/
+    display: inline-block;
+}
+#left_sidebar table tr{
+    background-color: #0096FF;
+    color: white;
+    font-size: 18;
+}
+#left_sidebar table tr:hover{
+    background-color: #D4F6CC;
+    color: black;
+}
+#logout_link{
+    text-decoration: none;
+    color: white;
+}
+#logout_link:hover{
+    background-color: #D4F6CC;
+    color: black;
+}
+#right_sidebar{
+    padding: 35px;
+    height: 75vh;
+    width: 75vw;
+    display: inline-block;
+    color: white;
+}
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>Task Management System</h1>
+    </div>
+
+    <!-- Admin Section -->
+    <section class="container">
+        <h2>Admins</h2>
+        <form id="adminForm" onsubmit="submitAdmin(event)">
+            <input type="text" id="adminName" placeholder="Name" required>
+            <input type="email" id="adminEmail" placeholder="Email" required>
+            <input type="password" id="adminPassword" placeholder="Password" required>
+            <input type="text" id="adminMobile" placeholder="Mobile">
+            <button type="submit">Add Admin</button>
+        </form>
+        <input type="text" id="searchAdmin" placeholder="Search by Name">
+        <button onclick="searchAdmins()">Search</button>
+        <table id="adminsTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Admin data will be inserted here -->
+            </tbody>
+        </table>
+    </section>
+
+    <!-- User Section -->
+    <section class="container">
+        <h2>Users</h2>
+        <form id="userForm" onsubmit="submitUser(event)">
+            <input type="text" id="userName" placeholder="Name" required>
+            <input type="email" id="userEmail" placeholder="Email" required>
+            <input type="password" id="userPassword" placeholder="Password" required>
+            <input type="text" id="userMobile" placeholder="Mobile">
+            <button type="submit">Add User</button>
+        </form>
+        <input type="text" id="searchUser" placeholder="Search by Name">
+        <button onclick="searchUsers()">Search</button>
+        <table id="usersTable">
+            <thead>
+                <tr>
+                    <th>UID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- User data will be inserted here -->
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Leaves Section -->
+    <section class="container">
+        <h2>Leaves</h2>
+        <form id="leaveForm" onsubmit="submitLeave(event)">
+            <input type="number" id="leaveUID" placeholder="User ID" required>
+            <input type="text" id="leaveSubject" placeholder="Subject" required>
+            <textarea id="leaveMessage" placeholder="Message"></textarea>
+            <select id="leaveStatus">
+                <option value="Pending">Pending</option>
+                <option value="Approved">Approved</option>
+                <option value="Rejected">Rejected</option>
+            </select>
+            <button type="submit">Add Leave</button>
+        </form>
+        <input type="text" id="searchLeave" placeholder="Search by Subject">
+        <button onclick="searchLeaves()">Search</button>
+        <table id="leavesTable">
+            <thead>
+                <tr>
+                    <th>LID</th>
+                    <th>UID</th>
+                    <th>Subject</th>
+                    <th>Message</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Leave data will be inserted here -->
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Tasks Section -->
+    <section class="container">
+        <h2>Tasks</h2>
+        <form id="taskForm" onsubmit="submitTask(event)">
+            <input type="number" id="taskUID" placeholder="User ID" required>
+            <input type="text" id="taskDescription" placeholder="Description" required>
+            <input type="date" id="taskStartDate" required>
+            <input type="date" id="taskEndDate" required>
+            <select id="taskStatus">
+                <option value="Not Started">Not Started</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+            </select>
+            <button type="submit">Add Task</button>
+        </form>
+        <input type="text" id="searchTask" placeholder="Search by Description">
+        <button onclick="searchTasks()">Search</button>
+        <table id="tasksTable">
+            <thead>
+                <tr>
+                    <th>TID</th>
+                    <th>UID</th>
+                    <th>Description</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Task data will be inserted here -->
+            </tbody>
+        </table>
+    </section>
+</body>
+</html>
